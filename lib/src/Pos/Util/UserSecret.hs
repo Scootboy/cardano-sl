@@ -77,16 +77,9 @@ data WalletUserSecret = WalletUserSecret
     , _wusWalletName :: Text                -- ^ name of wallet
     , _wusAccounts   :: [(Word32, Text)]    -- ^ accounts coordinates and names
     , _wusAddrs      :: [(Word32, Word32)]  -- ^ addresses coordinates
-    }
+    } deriving Eq
 
 makeLenses ''WalletUserSecret
-
-instance Eq WalletUserSecret where
-    a == b =
-       _wusRootKey a == _wusRootKey b &&
-       _wusWalletName a == _wusWalletName b &&
-       _wusAccounts a == _wusAccounts b &&
-       _wusAddrs a == _wusAddrs b
 
 instance Buildable WalletUserSecret where
     build WalletUserSecret{..} =
@@ -125,18 +118,9 @@ data UserSecret = UserSecret
     , _usWallet  :: Maybe WalletUserSecret
     , _usPath    :: FilePath
     , _usLock    :: Maybe FileLock
-    }
+    } deriving Eq
 
 makeLenses ''UserSecret
-
-instance Eq UserSecret where
-    a == b =
-        _usKeys a == _usKeys b &&
-        _usPrimKey a == _usPrimKey b &&
-        _usVss a == _usVss b &&
-        _usWallet a == _usWallet b &&
-        _usPath a == _usPath b &&
-        _usLock a ==  _usLock b
 
 class HasUserSecret ctx where
     -- if you're going to mock this TVar, look how it's done for peer state.

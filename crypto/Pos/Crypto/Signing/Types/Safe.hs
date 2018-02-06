@@ -31,7 +31,7 @@ import           Pos.Crypto.Signing.Types.Signing (PublicKey (..), SecretKey (..
 data EncryptedSecretKey = EncryptedSecretKey
     { eskPayload :: !CC.XPrv          -- ^ Secret key itself, encrypted with passphrase.
     , eskHash    :: !S.EncryptedPass  -- ^ Hash of passphrase used for key creation.
-    }
+    } deriving Eq
 
 instance Show EncryptedSecretKey where
     show _ = "<encrypted key>"
@@ -41,10 +41,6 @@ instance B.Buildable EncryptedSecretKey where
 
 instance Eq CC.XPrv where
     a == b = CC.unXPrv a == CC.unXPrv b
-
-instance Eq EncryptedSecretKey where
-    a == b = eskPayload a == eskPayload b &&
-        eskHash a == eskHash b
 
 newtype PassPhrase = PassPhrase ScrubbedBytes
     deriving (Eq, Ord, Monoid, NFData, ByteArray, ByteArrayAccess)

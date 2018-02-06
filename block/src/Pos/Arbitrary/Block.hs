@@ -416,9 +416,3 @@ instance Arbitrary SlogUndo where
 instance HasConfiguration => Arbitrary Undo where
     arbitrary = genericArbitrary
     shrink = genericShrink
-    -- arbitrary = do
-    --     a <- arbitrary
-    --     b <- arbitrary
-    --     c <- arbitrary
-    --     d <- arbitrary
-    --     return $ Undo a b c d

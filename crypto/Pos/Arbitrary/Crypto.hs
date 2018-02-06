@@ -231,9 +231,7 @@ instance Arbitrary HDAddressPayload where
 ----------------------------------------------------------------------------
 
 instance (Bi a, Arbitrary a) => Arbitrary (WithHash a) where
-    arbitrary = do
-        a <- arbitrary
-        return $ withHash a
+    arbitrary = fmap withHash arbitrary
     shrink = genericShrink
 
 --------------------------------------------------------------------------
